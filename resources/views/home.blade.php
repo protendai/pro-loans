@@ -65,6 +65,9 @@
                     <li>
                         <a class="#" href="tel:+0000000000"><i class="icon-phone"></i> 202-123-4567</a>
                     </li>
+                    <li>
+                        <a class="#" href="/login">Login</a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -31,7 +31,9 @@
 			</div>
 			<div class="right">
 				<div class="right-text">
-                    <div class="justify-content-center text-center"><img src="{{asset('img/logo-white.png')}}" alt="" style="max-width: 300px;"></div>
+                    <div class="justify-content-center text-center">
+                        <img src="{{asset('img/logo-white.png')}}" alt="" style="max-width: 300px;">
+                    </div>
                     <hr/>
 					
 					<h5><i>V1.0.0</i><br/></h5>
