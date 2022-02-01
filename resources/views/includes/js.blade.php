@@ -2,7 +2,8 @@
 <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
 <script src="{{asset('datatables/datatables.min.js') }}"></script>
 <script src="{{asset('select/dist/js/select2.min.js') }}"></script>
-<script src="{{ asset('js/toastr/toastr.min.js') }}"></script>
+<script src="{{asset('js/toastr/toastr.min.js') }}"></script>
+
 
 
 
@@ -18,5 +19,7 @@
         $('.datatable-sorted').DataTable({  "order": [[ 0, "desc" ]] });
     });
 
-    
+	populateCountries("country", "state","district");
+	populateStates("country", "state","district");
+
 </script>

@@ -28,7 +28,7 @@
                     {{-- Breadcrumbs --}}
                         @include('includes.alerts')
                         @include('sweetalert::alert')
-                        {{-- @include('layouts.breadcrumbs') --}}
+                        {{--@include('layouts.breadcrumbs') --}}
                     {{-- End Breadcrumbs --}}
 
                     {{-- Content / Render Area --}}

@@ -92,11 +92,17 @@
                 <div class="col-sm-5">
                     <div class="form-container">
                         <div class="form-mockup">
-                            <h2>Request Quote Now</h2>
+                            <h2>Request A Loan Now</h2>
                             <h4>Easy to apply for a loan with us,Once you have complete this form. </h4>
-                            <form action="lead.php" method="post">
-                              <div class="form-group">
-                                <input type="text" name="name" class="form-control" placeholder="Name">
+                            <form method="POST" action="{{ route('register') }}">
+                                @csrf
+                              <div class="row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" name="name" class="form-control" placeholder="Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" name="surname" class="form-control" placeholder="Surname">
+                                </div>
                               </div>
                               <div class="form-group">
                                 <input type="email" name="email" class="form-control" placeholder="E-mail">
@@ -104,12 +110,26 @@
                               <div class="form-group">
                                 <input type="text" name="phone" class="form-control" placeholder="Phone">
                               </div>
-                              <div class="form-group">
-                                <input type="text" id="autocomplete"  name="city" class="form-control" placeholder="Type Your City Name"/>
+
+                              <div class="row">
+                                <div class="form-group col-md-6">
+                                    <select id="country" name ="country" class="form-control" style="display:none"></select>
+                                    <select name ="state" id ="state"  class="form-control"></select>
+                                  </div>
+    
+                                  <div class="form-group col-md-6">
+                                    <select name ="district" id ="district"  class="form-control"></select>
+                                  </div>
                               </div>
+
                               <div class="form-group">
-                                <input type="text" class="form-control" name="zip_code" placeholder="Zip Code">
+                                <input type="text" name="address" class="form-control" placeholder="Address">
                               </div>
+
+                              <div class="form-group">
+                                <input type="number" name="duration" class="form-control" placeholder="How long you want to borrow for ?">
+                              </div>
+                              
                               <div class="form-group">
                                 <div class="button-slider">
                                   <div class="btn-group btn_group">
@@ -726,13 +746,17 @@
     <script src="{{ asset('site/js/jquery.counterup.js')}}"></script>
     <script src="{{ asset('site/js/jquery.waypoints.js')}}"></script>
     <script src="{{ asset('site/js/price.slider.js')}}"></script>
-        
+    <script src="{{ asset('js/country.js') }}"></script>
 
     <!-- Theme JavaScript -->
     <script src="{{ asset('site/js/custom.js')}}"></script>
     <script src="{{ asset('site/js/testimonials.js')}}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDgI2pfq_vtH_hOyGMZ7WM2PGcP72VJbYw"></script>
 
+   <script>
+        populateCountries("country", "state","district");
+	    populateStates("country", "state","district");
+   </script>
 </body>
 
 </html>
