@@ -98,23 +98,23 @@
                                 @csrf
                               <div class="row">
                                 <div class="form-group col-md-6">
-                                    <input type="text" name="name" class="form-control" placeholder="Name">
+                                    <input type="text" name="name" class="form-control" placeholder="Name" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input type="text" name="surname" class="form-control" placeholder="Surname">
+                                    <input type="text" name="surname" class="form-control" placeholder="Surname" required>
                                 </div>
                               </div>
                               <div class="form-group">
-                                <input type="email" name="email" class="form-control" placeholder="E-mail">
+                                <input type="email" name="email" class="form-control" placeholder="E-mail" required>
                               </div>
                               <div class="form-group">
-                                <input type="text" name="phone" class="form-control" placeholder="Phone">
+                                <input type="text" name="phone" class="form-control" placeholder="Phone" required>
                               </div>
 
                               <div class="row">
                                 <div class="form-group col-md-6">
                                     <select id="country" name ="country" class="form-control" style="display:none"></select>
-                                    <select name ="state" id ="state"  class="form-control"></select>
+                                    <select name ="province" id ="state"  class="form-control"></select>
                                   </div>
     
                                   <div class="form-group col-md-6">

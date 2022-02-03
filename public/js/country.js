@@ -260,16 +260,18 @@ s_a[250]="Kosovo|Montenegro|Serbia|Vojvodina";
 s_a[251]="Central|Copperbelt|Eastern|Luapula|Lusaka|North-Western|Northern|Southern|Western";
 s_a[252]="Bulawayo|Harare|Manicaland|Mashonaland Central|Mashonaland East|Mashonaland West|Masvingo|Matabeleland North|Matabeleland South|Midlands";
 var d_a=new Array();
-d_a[0]="Bulawayo";
-d_a[1]="Harare";
-d_a[2]="Buhera|Chimanimani|Chipinge|Makoni|Mutare|Mutasa|Nyanga";
-d_a[3]="Bindura|Guruve|Mazowe|Mbire|Mount Darwin|Muzarabani|Mukumbura|Rushinga|Shamva";
-d_a[4]="Chikomba|Goromonzi|Marondera|Mudzi|Murehwa|Mutoko|Seke|UMP (Uzumba-Maramba-Pfungwe)|Wedza (Hwedza)";
-d_a[5]="Chegutu|Hurungwe|Kariba|Makonde|Mhondoro-Ngezi|Sanyati|Zvimba|Kadoma";
-d_a[6]="Bikita|Chiredzi|Chivi|Gutu|Masvingo|Mwenezi|Zaka";
-d_a[7]="Binga|Bubi|Hwange|Lupane|Nkayi|Tsholotsho|Umguza";
-d_a[8]="Beitbridge|Bulilima|Gwanda|Insiza|Mangwe|Matobo|Umzingwane";
-d_a[9]="Chirumhanzu|Gokwe North|Gokwe South|Gweru|Kwekwe|Mberengwa|Shurugwi|Zvishavane";
+
+// d_a[0]="Harare";
+d_a[1]="Bulawayo";
+d_a[2]="Harare";
+d_a[3]="Buhera|Chimanimani|Chipinge|Makoni|Mutare|Mutasa|Nyanga";
+d_a[4]="Bindura|Guruve|Mazowe|Mbire|Mount Darwin|Muzarabani|Mukumbura|Rushinga|Shamva";
+d_a[5]="Chikomba|Goromonzi|Marondera|Mudzi|Murehwa|Mutoko|Seke|UMP (Uzumba-Maramba-Pfungwe)|Wedza (Hwedza)";
+d_a[6]="Chegutu|Hurungwe|Kariba|Makonde|Mhondoro-Ngezi|Sanyati|Zvimba|Kadoma";
+d_a[7]="Bikita|Chiredzi|Chivi|Gutu|Masvingo|Mwenezi|Zaka";
+d_a[8]="Binga|Bubi|Hwange|Lupane|Nkayi|Tsholotsho|Umguza";
+d_a[9]="Beitbridge|Bulilima|Gwanda|Insiza|Mangwe|Matobo|Umzingwane";
+d_a[10]="Chirumhanzu|Gokwe North|Gokwe South|Gweru|Kwekwe|Mberengwa|Shurugwi|Zvishavane";
 
 
 
