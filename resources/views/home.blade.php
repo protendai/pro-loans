@@ -94,7 +94,7 @@
                         <div class="form-mockup">
                             <h2>Request A Loan Now</h2>
                             <h4>Easy to apply for a loan with us,Once you have complete this form. </h4>
-                            <form method="POST" action="{{ route('register') }}">
+                            <form method="POST" action="{{ route('customer.register') }}">
                                 @csrf
                               <div class="row">
                                 <div class="form-group col-md-6">
@@ -150,7 +150,8 @@
         </div>
     </header>
     <!-- End Of Header -->
-
+    @include('includes.alerts')
+    @include('sweetalert::alert')
     <!-- Section Features -->
     <section id="features" class="features">
         <div class="container">

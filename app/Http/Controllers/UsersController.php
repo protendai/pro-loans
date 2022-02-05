@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use Auth;
 use App\Models\User;
+use App\Models\Customer;
+use App\Models\Spouses;
+use App\Models\Loan;
+
 class UsersController extends Controller
 {
     
@@ -124,8 +129,7 @@ class UsersController extends Controller
         $departments = Department::all();
         return view('admin.users.edit',compact('title','user','departments'));
     }
-
-    
+ 
     public function edit($id)
     {
         $title = "Edit User";
@@ -134,7 +138,6 @@ class UsersController extends Controller
         return view('admin.users.edit',compact('title','user','departments'));
     }
 
-   
     public function update(Request $request, $id)
     {
         $update = User::where('id',$id)->update([
@@ -208,5 +211,75 @@ class UsersController extends Controller
         }else{
             return back()->with('error','Password entered does not match your account');
         }
+    }
+
+
+    // Registration methods
+    public function register(Request $request){
+        try{
+
+            // Register User
+            $user = User::create([
+                'name'      =>$request->name,
+                'surname'   =>$request->surname,
+                'role'      =>"CU",
+                'email'     =>$request->email,
+                'password'  =>Hash::make('12345678'),
+            ]);
+
+            // Add customer details
+            $custumer = Customer::create([
+                'user_id'           =>$user->id,
+                'national_id'       =>null,
+                'phone'             =>$request->phone,
+                'province'          =>$request->province,
+                'district'          =>$request->district,
+                'address'           =>$request->address,
+                'copy_national_id'  =>null,
+                'copy_residence'    =>null,
+                'copy_bank'         =>null,
+            ]);
+
+            // Add loan application
+            $loans = Loan::orderby('loan_number', 'desc')->first();
+            $interest = 10;
+
+            if($loans){
+                $current_loan = $loans->loan_number;
+                $current_loan +=1;
+            }else{
+                $current_loan = 1000;
+            }
+
+            $data = [
+                "period"    =>$request->duration,
+                "interest"  =>$interest,
+                "amount"    =>$request->amount,
+            ];
+
+            $resp = $this->loan_engine($data);
+            $resp = (object)$resp;
+
+            $loan = Loan::create([
+                'loan_number'       =>$current_loan,
+                'user_id'           =>$user->id,
+                'period'            =>$request->duration,
+                'amount_borrowed'   =>$request->amount,
+                'interest'          =>$interest,
+                'total_repayment'   =>$resp->total_amount,
+                'date_application'  =>null,
+                'date_approval'     =>null,
+                'date_payment'      =>null,
+                'date_due'          =>$resp->last_date,
+                'status'            =>0,
+            ]);
+
+            // Login user
+            Auth::login($user);
+            return redirect(RouteServiceProvider::HOME);
+        }catch(Exception $e){
+            return back()->with('error',$e->getMessage());
+        }
+        
     }
 }

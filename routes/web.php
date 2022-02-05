@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Dashboard  
+Route::post('/customer/register', 'UsersController@register')->name('customer.register');
 
 Route::get('/', function () {
     return view('home');
