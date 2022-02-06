@@ -266,15 +266,7 @@ class UsersController extends Controller
                 $current_loan = 1000;
             }
 
-            // $data = [
-            //     "period"    =>$request->duration,
-            //     "interest"  =>$interest,
-            //     "amount"    =>$request->amount,
-            // ];
-
-            // $resp = $this->loan_engine($data);
-            // $resp = (object)$resp;
-
+            
             $loan = Loan::create([
                 'loan_number'       =>$current_loan,
                 'user_id'           =>$user_id,
@@ -286,7 +278,7 @@ class UsersController extends Controller
                 'date_approval'     =>null,
                 'date_payment'      =>null,
                 'date_due'          =>null,
-                'status'            =>0,
+                'loan_status'            =>0,
             ]);
 
             // Login user
@@ -298,6 +290,16 @@ class UsersController extends Controller
         
     }
 
+    // Customer Methods
+    public function customers(){
+        $users = DB::table('users')->join('customers','customers.user_id','=','users.id')->get();
+        return view('admin.users.customers',compact('users'));
+    }
+
+    public function customers_view($id){
+        $user = DB::table('users')->join('customers','customers.user_id','=','users.id')->where('users.id',$id)->get();
+        return view('admin.users.customers_view',compact('user'));
+    }
     public function customer_profile(Request $request){
         
         if($request->copy_national_id){
@@ -328,7 +330,7 @@ class UsersController extends Controller
         $update = Customer::where('user_id',Auth::user()->id)
         ->update([
             'national_id'       =>$request->national_id,
-            'phone'             =>$request->national_i,
+            'phone'             =>$request->phone,
             'copy_national_id'  =>$copy_national_id_file,
             'copy_residence'    =>$copy_residence_file,
             'copy_bank'         =>$copy_bank_statement_file,

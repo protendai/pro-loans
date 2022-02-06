@@ -17,10 +17,10 @@ class Controller extends BaseController
         $period     = $data['period'];
         $interest   = $data['interest'];
         $amount     = $data['amount'];
+        $today      = $data['today'];
         
-
-
-        // Accounting Formulae :  repayment period * interest + amount + loan amount borrowed
+        // Accounting Formula :  repayment period * interest + amount + loan amount borrowed
+        
         // Step  1  - Get the total interest rate by  :  repayment * interest %     = 0.5 
         $total_interest_perc = $period * ($interest / 100);
         // Step  2  - convert interest to $$$$$ using :  interest * amount   =  1000 this is the total interest
@@ -33,8 +33,8 @@ class Controller extends BaseController
         $total_monthly_payment  = $total_loan_amount / $period;
 
         // Do Date Calculations
-        $first_payment_date = $request->first_payment;
-        $next_payment_date  = $this->get_next_date($request->first_payment);
+        $first_payment_date = $today;
+        $next_payment_date  = $this->get_next_date($first_payment_date);
         $last_payment_date  = $this->get_next_months($period,$first_payment_date);
 
         $data = [

@@ -25,7 +25,7 @@ class CreateLoansTable extends Migration
             $table->date('date_approval')->nullable();
             $table->date('date_payment')->nullable();
             $table->date('date_due')->nullable();
-            $table->smallInteger('status');
+            $table->smallInteger('loan_status');
             $table->timestamps();
         });
     }

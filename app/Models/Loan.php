@@ -20,6 +20,6 @@ class Loan extends Model
         'date_approval',
         'date_payment',
         'date_due',
-        'status',
+        'loan_status',
     ];
 }

@@ -14,13 +14,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     // Loans  
     Route::get('loans', 'LoansController@index')->name('loans');
+    Route::get('loans/view/{id}', 'LoansController@show');
+    Route::get('loans/cancel/{id}', 'LoansController@cancel');
+    Route::post('loans/approve', 'LoansController@store');
+
     // Users  
     Route::get('users', 'UsersController@index')->name('users');
     Route::post('users/create', 'UsersController@store')->name('users.store');
     Route::get('users/edit/{id}', 'UsersController@index')->name('users.edit');
-    // Users  
+    // User Profile  
     Route::get('profile', 'UsersController@profile');
     Route::post('profile/customer', 'UsersController@customer_profile');
+    // User Custoers
+    Route::get('customers', 'UsersController@customers');
+    Route::get('customers/view/{id}', 'UsersController@customers_view');
 });
 
 

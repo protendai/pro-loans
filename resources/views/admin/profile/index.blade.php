@@ -51,6 +51,8 @@
                                     <label for="">Upload Copy of bank Statement</label>
                                     <input type="file" class="form-control" name="copy_bank_statement" accept=".pdf"   required>
                                 </div>
+                                <br/>
+                                <button type="submit" class="btn btn-primary float-right">Save Changes</button>
                             </div>
                         </div>
                     </form>

@@ -6,39 +6,49 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title"></h5>
-                <a href="/sync/suppliers" class="btn btn-primary btn-md float-right" >Sync Suppliers</a>
+                <a href="/sync/suppliers" class="btn btn-primary btn-md float-right" >Apply Loan</a>
             </div>
             <table class="table table-striped datatable">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Supplier Code</th>
-                        <th>Supplier Name</th>
-                        <th>Supplier Type</th>
-                        <th>Group Code</th>
+                        <th>Loan Number</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th>Interest</th>
+                        <th>Duration</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($suppliers as $row)
+                    @foreach ($loans as $row)
                     <tr>
-                        <td>{{$row->id}}</td>
-                        <td>{{$row->cardCode}}</td>
-                        <td>{{$row->cardName}}</td>
-                        <td>{{$row->cardType}}</td>
-                        <td>{{$row->groupCode}}</td>
+                        <td>{{$row->loan_number}}</td>
+                        <td>{{$row->name.' '.$row->surname}}</td>
+                        <td>{{$row->amount_borrowed}}</td>
+                        <td>{{$row->interest}}</td>
+                        <td>{{$row->period}}</td>
                         <td>
-                            @if($row->cardStatus == 0) 
-                                <span class="badge bg-danger">UnAvailable</span>
-                            @elseif($row->cardStatus == 1)
-                                <span class="badge bg-success">Available</span>
+                            @if($row->loan_status == 0) 
+                                <span class="badge bg-primary">Pending</span>
+                            @elseif($row->loan_status == 1)
+                                <span class="badge bg-warning">In Progress</span>
+                            @elseif($row->loan_status == 2)
+                                <span class="badge bg-success">Paid Up</span>
                             @else  
-                                <span class="badge bg-warning">In Sync</span>
+                                <span class="badge bg-warning">Cancelled</span>
                             @endif
                         </td>
                         <td class="table-action">
-                            <a href="{{ route('suppliers.show',$row->id)}}"><i class="align-middle" data-feather="edit-2"></i></a>
+                            @if($row->loan_status > 0)
+                                <a href="/loans/view/{{$row->loan_number}}" class="btn btn-primary"><i style="color:#fff;">View</i></a>
+                            @else 
+                                @if(Auth::user()->role !="CU") 
+                                <a href="/loans/view/{{$row->loan_number}}"><i class="align-middle" data-feather="edit-2"></i></a>
+                                @endif
+                                <a href="/loans/cancel/{{$row->loan_number}}"  title="Cancel Loan"><i class="align-middle" data-feather="minus-circle"></i></a>
+                                <a href="#" title="Waiting for approval"><i class="align-middle" data-feather="eye-off"></i></button>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
