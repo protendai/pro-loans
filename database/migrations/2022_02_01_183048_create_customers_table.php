@@ -24,6 +24,7 @@ class CreateCustomersTable extends Migration
             $table->string('copy_national_id')->nullable();
             $table->string('copy_residence')->nullable();
             $table->string('copy_bank')->nullable();
+            $table->smallInteger('status');
             $table->timestamps();
         });
     }

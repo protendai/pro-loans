@@ -18,6 +18,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('users', 'UsersController@index')->name('users');
     Route::post('users/create', 'UsersController@store')->name('users.store');
     Route::get('users/edit/{id}', 'UsersController@index')->name('users.edit');
+    // Users  
+    Route::get('profile', 'UsersController@profile');
+    Route::post('profile/customer', 'UsersController@customer_profile');
 });
+
 
 require __DIR__.'/auth.php';

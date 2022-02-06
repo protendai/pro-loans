@@ -19,5 +19,6 @@ class Customer extends Model
         'copy_national_id',
         'copy_residence',
         'copy_bank',
+        'status'
     ];
 }

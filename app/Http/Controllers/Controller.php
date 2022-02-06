@@ -17,24 +17,25 @@ class Controller extends BaseController
         $period     = $data['period'];
         $interest   = $data['interest'];
         $amount     = $data['amount'];
+        
 
 
         // Accounting Formulae :  repayment period * interest + amount + loan amount borrowed
         // Step  1  - Get the total interest rate by  :  repayment * interest %     = 0.5 
-        $total_interest_perc = $loan_det->repayment_period * ($request->loan_interest_perc / 100);
+        $total_interest_perc = $period * ($interest / 100);
         // Step  2  - convert interest to $$$$$ using :  interest * amount   =  1000 this is the total interest
-        $total_interest_amount = $total_interest_perc * $loan_det->requested_amount;
+        $total_interest_amount = $total_interest_perc * $amount;
         // Step  3  - get the total amount to paid in 5 mothns  : amount + interest =  3000
-        $total_loan_amount = $loan_det->requested_amount + $total_interest_amount;
+        $total_loan_amount = $amount + $total_interest_amount;
         // Step  4  -  get amount to paid monthly  including interest : total_amount / repayment = $600 per month
-        $monthly_payment_no_interest = $loan_det->requested_amount / $loan_det->repayment_period;
+        $monthly_payment_no_interest = $amount / $period;
         // Step  5  -  get monthly payment
-        $total_monthly_payment  = $total_loan_amount / $loan_det->repayment_period;
+        $total_monthly_payment  = $total_loan_amount / $period;
 
         // Do Date Calculations
         $first_payment_date = $request->first_payment;
         $next_payment_date  = $this->get_next_date($request->first_payment);
-        $last_payment_date  = $this->get_next_months($loan_det->repayment_period,$first_payment_date);
+        $last_payment_date  = $this->get_next_months($period,$first_payment_date);
 
         $data = [
             "total_amount"  => $total_loan_amount,
@@ -77,5 +78,5 @@ class Controller extends BaseController
 
         return $days_over;
     }
-    
+
 }

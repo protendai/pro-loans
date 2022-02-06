@@ -114,11 +114,11 @@
                               <div class="row">
                                 <div class="form-group col-md-6">
                                     <select id="country" name ="country" class="form-control" style="display:none"></select>
-                                    <select name ="province" id ="state"  class="form-control"></select>
+                                    <select name ="province" id ="state"  class="form-control" required></select>
                                   </div>
     
                                   <div class="form-group col-md-6">
-                                    <select name ="district" id ="district"  class="form-control"></select>
+                                    <select name ="district" id ="district"  class="form-control" required></select>
                                   </div>
                               </div>
 

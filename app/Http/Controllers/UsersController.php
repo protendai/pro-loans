@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use Auth;
@@ -179,8 +180,14 @@ class UsersController extends Controller
     // Profile Routes
     public function profile(){
         $title = "User Profile";
+        
         $user = User::where('id',Auth::user()->id)->first();
-        return view('admin.users.profile',compact('title','user'));
+        $details = null;
+        if(Auth::user()->role =='CU'){
+
+            $details = Customer::where('user_id',Auth::user()->id)->first();
+        }
+        return view('admin.profile.index',compact('title','user','details'));
     }
 
     public function profile_update(){
@@ -219,17 +226,25 @@ class UsersController extends Controller
         try{
 
             // Register User
-            $user = User::create([
-                'name'      =>$request->name,
-                'surname'   =>$request->surname,
-                'role'      =>"CU",
-                'email'     =>$request->email,
-                'password'  =>Hash::make('12345678'),
-            ]);
+            $user_id = null;
+            $user = User::where('email',$request->email)->first();
+            if($user){
+               $user_id = $user->id;
+            }else{
+                $user = User::create([
+                    'name'      =>$request->name,
+                    'surname'   =>$request->surname,
+                    'role'      =>"CU",
+                    'email'     =>$request->email,
+                    'password'  =>Hash::make('12345678'),
+                ]);
+
+                $user_id = $user->id;
+            }
 
             // Add customer details
             $custumer = Customer::create([
-                'user_id'           =>$user->id,
+                'user_id'           =>$user_id,
                 'national_id'       =>null,
                 'phone'             =>$request->phone,
                 'province'          =>$request->province,
@@ -251,26 +266,26 @@ class UsersController extends Controller
                 $current_loan = 1000;
             }
 
-            $data = [
-                "period"    =>$request->duration,
-                "interest"  =>$interest,
-                "amount"    =>$request->amount,
-            ];
+            // $data = [
+            //     "period"    =>$request->duration,
+            //     "interest"  =>$interest,
+            //     "amount"    =>$request->amount,
+            // ];
 
-            $resp = $this->loan_engine($data);
-            $resp = (object)$resp;
+            // $resp = $this->loan_engine($data);
+            // $resp = (object)$resp;
 
             $loan = Loan::create([
                 'loan_number'       =>$current_loan,
-                'user_id'           =>$user->id,
+                'user_id'           =>$user_id,
                 'period'            =>$request->duration,
                 'amount_borrowed'   =>$request->amount,
                 'interest'          =>$interest,
-                'total_repayment'   =>$resp->total_amount,
+                'total_repayment'   =>null,
                 'date_application'  =>null,
                 'date_approval'     =>null,
                 'date_payment'      =>null,
-                'date_due'          =>$resp->last_date,
+                'date_due'          =>null,
                 'status'            =>0,
             ]);
 
@@ -281,5 +296,49 @@ class UsersController extends Controller
             return back()->with('error',$e->getMessage());
         }
         
+    }
+
+    public function customer_profile(Request $request){
+        
+        if($request->copy_national_id){
+            $file       = $request->copy_national_id;
+            $file_name  = rand(1,100).''.round(microtime(true)).'.'.$file->getClientOriginalExtension();
+            $path       = $file->storeAs('public/docs', $file_name); 
+            $copy_national_id_file = $file_name;
+        }
+
+        if($request->copy_residence){
+            $file       = $request->copy_residence;
+            $file_name  = rand(1,100).''.round(microtime(true)).'.'.$file->getClientOriginalExtension();
+            $path       = $file->storeAs('public/docs', $file_name); 
+            $copy_residence_file = $file_name;
+        }
+
+
+        if($request->copy_bank_statement){
+            $file       = $request->copy_bank_statement;
+            $file_name  = rand(1,100).''.round(microtime(true)).'.'.$file->getClientOriginalExtension();
+            $path       = $file->storeAs('public/docs', $file_name); 
+
+            $copy_bank_statement_file = $file_name;
+        }
+
+        // Update the DB;
+
+        $update = Customer::where('user_id',Auth::user()->id)
+        ->update([
+            'national_id'       =>$request->national_id,
+            'phone'             =>$request->national_i,
+            'copy_national_id'  =>$copy_national_id_file,
+            'copy_residence'    =>$copy_residence_file,
+            'copy_bank'         =>$copy_bank_statement_file,
+        ]);
+
+
+        if($update){
+            return redirect('/dashboard')->with('success','Account details updated , wait for approval');
+        }else{
+            return back()->with('error','Operation failed : '.$update);
+        }
     }
 }

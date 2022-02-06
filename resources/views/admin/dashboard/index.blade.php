@@ -2,6 +2,30 @@
 
 @section('content')
 
+@if(Auth::user()->role=='CU')
+    @if($details->status != 1)
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Account not activated</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                        <div class="alert-message">
+                            <strong>Notice!</strong> 
+                            Your account has not been activated yet , please take some time to review your personal details. You loan requests can only be approved once your account has been approved
+                            <br/>
+                        </div>
+                        
+                    </div>
+                    <a href="" class="btn btn-primary">Go to Profile</a>
+                </div>
+            </div>
+        </div>
+    @endif
+@endif
+
     <div class="row">
         <div class="col-xl-6 col-xxl-5 d-flex">
             <div class="w-100">
@@ -58,57 +82,6 @@
             </div>
         </div>
 
-        <div class="col-xl-6 col-xxl-7">
-            <div class="card flex-fill w-100">
-                <div class="card-header">
-
-                    <h5 class="card-title mb-0">Recent Movement</h5>
-                </div>
-                <div class="card-body py-3">
-                    <div class="chart chart-sm">
-                        <canvas id="chartjs-dashboard-line"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
-            <div class="card flex-fill w-100">
-                <div class="card-header">
-
-                    <h5 class="card-title mb-0">Requests</h5>
-                </div>
-                <div class="card-body d-flex">
-                    <div class="align-self-center w-100">
-                        <div class="py-3">
-                            <div class="chart chart-xs">
-                                <canvas id="chartjs-dashboard-pie"></canvas>
-                            </div>
-                        </div>
-
-                        <table class="table mb-0">
-                            <tbody>
-                                <tr>
-                                    <td>Purchase Requests</td>
-                                    <td class="text-right">0</td>
-                                </tr>
-                                <tr>
-                                    <td>Inventory Requests</td>
-                                    <td class="text-right">0</td>
-                                </tr>
-                                <tr>
-                                    <td>Other</td>
-                                    <td class="text-right">0</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
         <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
             <div class="card flex-fill">
                 <div class="card-header">
@@ -125,6 +98,8 @@
             </div>
         </div>
     </div>
+
+   
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
