@@ -43,7 +43,9 @@ class LoansController extends Controller
             ->where('loans.loan_number',$id)
             ->first();
 
-        return view('admin.loans.view',compact('title','loan'));
+        $payments = LoanRepayment::where('loan_number',$id)->get();
+
+        return view('admin.loans.view',compact('title','loan','payments'));
     }
 
     public function cancel($id){
@@ -97,14 +99,14 @@ class LoansController extends Controller
     // Repayment Methods
     public function repayment_store(Request $request){
         $loan_number    = $request->loan_number;
-        $amount_paid    = $request->amount;
+        $amount_paid    = $request->amount_paid;
         $payment_date   = date('Y-m-d');
         $payment_method = $request->payment_method;
         $payment_ref    = $request->payment_ref;
 
         // Get loan details
         $loan = Loan::where('loan_number',$loan_number)->first();
-        $repayments = LoanRepayment::where('loan_number',$loan_number)->orderby('created_at','DESC')->limit(1);
+        $repayments = LoanRepayment::where('loan_number',$loan_number)->orderby('created_at','desc')->first();
         $total_paid = LoanRepayment::where('loan_number',$loan_number)->sum('total_paid');
         // Sort out dates
         $next_payment = $this->get_next_date($payment_date);
@@ -130,6 +132,13 @@ class LoansController extends Controller
 
 
         // update main loan details
+        $balance = $loan->total_repayment - ($total_paid + $amount_paid);
+        if($balance == 0 ){
+            $update = Loan::where('loan_number',$loan_number)
+            ->update([
+                'loan_status'=>2
+            ]);  
+        }
         $update = Loan::where('loan_number',$loan_number)->update(['date_payment'=>$next_payment]);
 
 

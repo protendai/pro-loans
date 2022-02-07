@@ -22,19 +22,19 @@
                         </div>
                         <div class="form-group">
                             <label for="">Amount Borrowed</label>
-                            <input type="text" class="form-control" value="{{$loan->amount_borrowed}}" readonly>
+                            <input type="text" class="form-control" value="$ @convert($loan->amount_borrowed)" readonly>
                         </div>
                         <div class="form-group">
                             <label for="">Loan Interest</label>
-                            <input type="text" class="form-control" value="{{$loan->interest}}" readonly>
+                            <input type="text" class="form-control" value="$ @convert($loan->interest) %" readonly>
                         </div>
                         <div class="form-group">
                             <label for="">Monthly Payment</label>
-                            <input type="text" class="form-control" value="{{$loan->total_repayment / $loan->period}}" readonly>
+                            <input type="text" class="form-control" value="$ @convert($loan->total_repayment / $loan->period)" readonly>
                         </div>
                         <div class="form-group">
                             <label for="">Total Payment</label>
-                            <input type="text" class="form-control" value="{{$loan->total_repayment}}" readonly>
+                            <input type="text" class="form-control" value="$ @convert($loan->total_repayment)" readonly>
                         </div>
                         <div class="form-group">
                             <label for="">Last Payment Date</label>
@@ -64,15 +64,28 @@
                     @endif
                 </div>
                 <form action="">
-                    <div class="card-body">
-
-                       
-                        
-
-                    </div>
-                    <div class="card-footer">
-                        
-                    </div>
+                    <div class="card-body p-2">
+                        <table  class="table table-striped datatable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if($payments)
+                                    @foreach ($payments as $row)
+                                        <tr>
+                                            <td>@longdate($row->created_at)</td>
+                                            <td>$ @convert($row->amount_paid)</td>
+                                            <td>$ @convert($row->balance)</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div> 
                 </form>
             </div>
         </div>
@@ -87,7 +100,7 @@
                     <h5 class="modal-title">Record Payment</h5>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('users.store')}}" method="POST" enctype="multipart/form-data">
+                <form action="/repayment/record" method="POST" enctype="multipart/form-data">
                     @csrf 
                     <div class="modal-body m-3">
                         <div class="form-group">
@@ -106,7 +119,7 @@
                         <br/>
                         <div class="form-group">
                             <label for="">Reference Number</label>
-                            <input type="text" class="form-control" name="payment_reference">
+                            <input type="text" class="form-control" name="payment_ref">
                         </div>
                         <br/>
                         <div class="form-group">

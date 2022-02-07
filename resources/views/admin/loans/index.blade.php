@@ -25,9 +25,9 @@
                     <tr>
                         <td>{{$row->loan_number}}</td>
                         <td>{{$row->name.' '.$row->surname}}</td>
-                        <td>{{$row->amount_borrowed}}</td>
-                        <td>{{$row->interest}}</td>
-                        <td>{{$row->period}}</td>
+                        <td>$ @convert($row->amount_borrowed)</td>
+                        <td>@convert($row->interest) %</td>
+                        <td>{{$row->period}} Months</td>
                         <td>
                             @if($row->loan_status == 0) 
                                 <span class="badge bg-primary">Pending</span>
