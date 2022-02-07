@@ -49,7 +49,7 @@ class Controller extends BaseController
 
     }
 
-    function get_next_date($payment_date){
+    public function get_next_date($payment_date){
 
         //Date issue to a given date.
         $date = new \DateTime($payment_date);

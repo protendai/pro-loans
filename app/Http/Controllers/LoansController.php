@@ -92,4 +92,55 @@ class LoansController extends Controller
             return back()->with('error','Operation failed '.$update);
         }
     }
+
+
+    // Repayment Methods
+    public function repayment_store(Request $request){
+        $loan_number    = $request->loan_number;
+        $amount_paid    = $request->amount;
+        $payment_date   = date('Y-m-d');
+        $payment_method = $request->payment_method;
+        $payment_ref    = $request->payment_ref;
+
+        // Get loan details
+        $loan = Loan::where('loan_number',$loan_number)->first();
+        $repayments = LoanRepayment::where('loan_number',$loan_number)->orderby('created_at','DESC')->limit(1);
+        $total_paid = LoanRepayment::where('loan_number',$loan_number)->sum('total_paid');
+        // Sort out dates
+        $next_payment = $this->get_next_date($payment_date);
+
+        if($repayments){
+            $first_date = $repayments->date_first_payment;
+        }else{
+            $first_date = $payment_date;
+        }
+        // save payment details
+        $pay = LoanRepayment::create([
+            'loan_number'           =>$loan_number,
+            'payment_method'        =>$payment_method,
+            'payment_ref'           =>$payment_ref,
+            'amount_paid'           =>$amount_paid,
+            'monthly_payment'       =>$loan->total_repayment / $loan->period,
+            'total_amount'          =>$loan->total_repayment,
+            'total_paid'            =>$total_paid + $amount_paid,
+            'balance'               =>$loan->total_repayment - ($total_paid + $amount_paid),
+            'date_first_payment'    =>$first_date,
+            'date_next_payment'     =>$next_payment,
+        ]);
+
+
+        // update main loan details
+        $update = Loan::where('loan_number',$loan_number)->update(['date_payment'=>$next_payment]);
+
+
+        if($pay && $update){
+            return back()->with('success','Loan payment recorded');
+        }else{
+            return back()->with('error','Operation failed 1: Payment '.$pay.' Or 2 Loan update '.$update);
+        }
+
+
+
+    }
+
 }

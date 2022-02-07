@@ -53,11 +53,15 @@
             </div>
         </div>
         
+        @if($loan->loan_status > 0)
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Repayment Details</h5>
+
+                    @if(Auth::user()->role !="CU")
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment-modal">Record Payment</button>
+                    @endif
                 </div>
                 <form action="">
                     <div class="card-body">
@@ -72,6 +76,7 @@
                 </form>
             </div>
         </div>
+        @endif
     </div>
 
 

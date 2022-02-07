@@ -17,6 +17,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('loans/view/{id}', 'LoansController@show');
     Route::get('loans/cancel/{id}', 'LoansController@cancel');
     Route::post('loans/approve', 'LoansController@store');
+    // Repy
+    Route::post('repayment/record', 'LoansController@repayment_store');
+
 
     // Users  
     Route::get('users', 'UsersController@index')->name('users');
