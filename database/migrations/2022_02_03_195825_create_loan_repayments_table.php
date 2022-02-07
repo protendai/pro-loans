@@ -16,7 +16,10 @@ class CreateLoanRepaymentsTable extends Migration
         Schema::create('loan_repayments', function (Blueprint $table) {
             $table->id();
             $table->string('loan_number');
+            $table->string('payment_method');
+            $table->string('payment_ref');
             $table->double('monthly_payment');
+            $table->double('amount_paid');
             $table->double('total_amount');
             $table->double('total_paid');
             $table->double('balance');

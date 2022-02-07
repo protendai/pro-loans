@@ -7,6 +7,7 @@ use DB;
 use Auth;
 use App\Models\User;
 use App\Models\Loan;
+use App\Models\Customer;
 use App\Models\LoanRepayment;
 
 class LoansController extends Controller

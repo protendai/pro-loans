@@ -14,6 +14,7 @@
                             <th>National ID</th>
                             <th>Phone Number</th>
                             <th>Email Address</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -24,7 +25,15 @@
                             <td>{{$row->national_id}}</td>
                             <td>{{$row->phone}}</td>
                             <td>{{$row->email}}</td>
-                            
+                            <td>
+                                @if($row->status == 0) 
+                                    <span class="badge bg-primary">Pending</span>
+                                @elseif($row->status == 1)
+                                    <span class="badge bg-success">Approved</span>
+                                @else  
+                                    <span class="badge bg-danger">Cancelled</span>
+                                @endif
+                            </td>
                             <td class="table-action">
                                 <a href="/customers/view/{{$row->user_id}}"><i class="align-middle" data-feather="edit-2"></i></a>
                             </td>

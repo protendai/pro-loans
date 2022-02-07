@@ -37,13 +37,14 @@
                 </a>
             </li>
 
-
+            @if(Auth::user()->role !="CU")
             <li class="sidebar-item  {{ request()->routeIs('users.customers') ? 'active' : null }}">
                 <a class="sidebar-link" href="/customers">
                     <i class="align-middle" data-feather="users"></i> <span
                         class="align-middle">Customers</span>
                 </a>
             </li>
+            @endif
 
             @if(Auth::user()->role =="AD")
                 <li class="sidebar-item  {{ request()->routeIs('users.index') ? 'active' : null }}">

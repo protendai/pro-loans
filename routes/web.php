@@ -28,6 +28,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // User Custoers
     Route::get('customers', 'UsersController@customers');
     Route::get('customers/view/{id}', 'UsersController@customers_view');
+    Route::get('download/{document}', 'UsersController@download');
+    Route::get('customer/activate/{id}', 'UsersController@customers_activate');
 });
 
 

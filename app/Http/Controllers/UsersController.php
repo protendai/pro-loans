@@ -243,17 +243,21 @@ class UsersController extends Controller
             }
 
             // Add customer details
-            $custumer = Customer::create([
-                'user_id'           =>$user_id,
-                'national_id'       =>null,
-                'phone'             =>$request->phone,
-                'province'          =>$request->province,
-                'district'          =>$request->district,
-                'address'           =>$request->address,
-                'copy_national_id'  =>null,
-                'copy_residence'    =>null,
-                'copy_bank'         =>null,
-            ]);
+            $isExist  = Customer::where('user_id',$user_id)->count();
+            if($isExist == 0){
+                $custumer = Customer::create([
+                    'user_id'           =>$user_id,
+                    'national_id'       =>null,
+                    'phone'             =>$request->phone,
+                    'province'          =>$request->province,
+                    'district'          =>$request->district,
+                    'address'           =>$request->address,
+                    'copy_national_id'  =>null,
+                    'copy_residence'    =>null,
+                    'copy_bank'         =>null,
+                ]);
+            } 
+            
 
             // Add loan application
             $loans = Loan::orderby('loan_number', 'desc')->first();
@@ -297,7 +301,8 @@ class UsersController extends Controller
     }
 
     public function customers_view($id){
-        $user = DB::table('users')->join('customers','customers.user_id','=','users.id')->where('users.id',$id)->get();
+        $user = DB::table('users')->join('customers','customers.user_id','=','users.id')->where('users.id',$id)->first();
+       
         return view('admin.users.customers_view',compact('user'));
     }
     public function customer_profile(Request $request){
@@ -342,5 +347,24 @@ class UsersController extends Controller
         }else{
             return back()->with('error','Operation failed : '.$update);
         }
+    }
+
+    public function customers_activate($id){
+        $update = Customer::where('user_id',$id)->update(['status'=>1]);
+
+        if($update){
+            return redirect('/customers')->with('success','Customer Activated');
+        }else{
+            return back()->with('error','Operation failed '.$update);
+        }
+    }
+
+
+    public function download($document){
+       
+        $path = public_path('storage/docs');
+        $file = $path . '/' .$document;
+        return response()->download($file);
+
     }
 }
