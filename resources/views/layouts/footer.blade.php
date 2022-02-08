@@ -3,7 +3,7 @@
         <div class="row text-muted">
             <div class="col-6 text-left">
                 <p class="mb-0">
-                    <a href="index.html" class="text-muted"><strong>Comex Version 1.0.0 Developed by DBS Global</strong></a> &copy;2021
+                    <a href="index.html" class="text-muted"><strong>Virtuous Finance V1.0.0</strong></a> &copy;2022
                 </p>
             </div>
             <div class="col-6 text-right">

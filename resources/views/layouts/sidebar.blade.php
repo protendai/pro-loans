@@ -1,7 +1,7 @@
 <nav id="sidebar" class="sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="index.html">
-            <span class="align-middle">VIRTOUS FINANCE</span>
+            <span class="align-middle">VIRTUOUS FINANCE</span>
         </a>
 
         <ul class="sidebar-nav">

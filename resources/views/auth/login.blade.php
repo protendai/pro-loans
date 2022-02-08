@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Comex | Zim-papers</title>
+  <title>V-finance | Login</title>
   <link rel="stylesheet" href="{{asset('css/login.css')}}">
   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 </head>
