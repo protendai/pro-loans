@@ -55,7 +55,7 @@
             <!-- Brand Logo -->
             <div class="navbar-header">
                 <a class="navbar-brand page-scroll" href="#page-top">
-                    <img src="{{ asset('site/img/logo_home.png')}}" alt="LOGO">
+                    <img src="{{ asset('site/img/logo_home.png')}}" alt="LOGO" style="max-width: 180px;">
                 </a>
             </div>
 
