@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Virtous Finance</title>
+    <title>V-Finance</title>
     <link rel="shortcut icon" href="{{ asset('site/img/favicon_home.ico')}}" type="image/x-icon">
     <link rel="icon" href="{{ asset('site/img/favicon_home.ico')}}" type="image/x-icon">
 
@@ -63,7 +63,7 @@
             <div class="social_link">
                 <ul class="nav navbar-nav navbar-right call_to">
                     <li>
-                        <a class="#" href="tel:+0000000000"><i class="icon-phone"></i> 202-123-4567</a>
+                        <a class="#" href="tel:+0000000000"><i class="icon-phone"></i> 263 712 980 123</a>
                     </li>
                     <li>
                         <a class="#" href="/login">Login</a>
@@ -82,9 +82,9 @@
                     <div class="header-content">
                         <div class="header-content-inner">
                             <h1>Instant Approval For Home Loan</h1>
-                            <p>Lowest Interest Rates - Calculate EMI - Check Eligibility - Instant e-Approval - Special Offers</p>
-                            <h2>7.25% <span>For New Home</span></h2>
-                            <h2>8.30% <span>For Old Home</span></h2>
+                            <p>Lowest Interest Rates - Check Eligibility - Instant e-Approval </p>
+                            <h2>10% <span>For New Customers</span></h2>
+                            <h2>5% <span>For Old Customers</span></h2>
                             <a href="#features" class="btn btn-outline btn-xl page-scroll">Why Choose Us ?</a>
                         </div>
                     </div>
@@ -135,8 +135,8 @@
                                   <div class="btn-group btn_group">
                                     <div class="btn btn-default btn_amount">Amount </div>
                                     <div class="btn btn-default btn_slider">
-                                      <input id="bootstrap-slider" type="text" name="amount" data-slider-min="1" data-slider-max="50000" data-slider-step="1" data-slider-value="25000"/>
-                                      <div class="valueLabel"><span class="text_span">Amount &nbsp; &nbsp;</span> $<span id="sliderValue">25000</span></div>
+                                      <input id="bootstrap-slider" type="text" name="amount" data-slider-min="1" data-slider-max="5000" data-slider-step="1" data-slider-value="100"/>
+                                      <div class="valueLabel"><span class="text_span">Amount &nbsp; &nbsp;</span> $<span id="sliderValue">100</span></div>
                                     </div>
                                   </div>
                                 </div>

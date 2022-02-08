@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title"></h5>
-                <a href="/sync/suppliers" class="btn btn-primary btn-md float-right" >Apply Loan</a>
+                <button type="button" class="btn btn-primary btn-md float-right"  data-toggle="modal" data-target="#apply-modal">Apply Loan</button>
             </div>
             <table class="table table-striped datatable">
                 <thead>
@@ -54,6 +54,45 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="apply-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Quickly Apply</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/loans/apply" method="POST" enctype="multipart/form-data">
+                    @csrf
+                   
+                    <div class="modal-body m-3">
+                        
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" name="name" value="{{Auth::user()->name.' '.Auth::user()->surname}}">
+                               
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="">Duration (Months)</label>
+                                <input type="number" class="form-control" name="duration">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="">Amount</label>
+                                <input type="nuber" class="form-control" name="amount" min="100" max="5000">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Quick Apply</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @endsection

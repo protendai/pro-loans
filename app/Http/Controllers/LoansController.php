@@ -95,6 +95,42 @@ class LoansController extends Controller
         }
     }
 
+    public function apply(Request $request){
+        // Add loan application
+        $loans = Loan::orderby('loan_number', 'desc')->first();
+        $interest = 10;
+
+        if($loans){
+            $current_loan = $loans->loan_number;
+            $current_loan +=1;
+        }else{
+            $current_loan = 1000;
+        }
+
+        
+        $loan = Loan::create([
+            'loan_number'       =>$current_loan,
+            'user_id'           =>Auth::user()->id,
+            'period'            =>$request->duration,
+            'amount_borrowed'   =>$request->amount,
+            'interest'          =>$interest,
+            'total_repayment'   =>null,
+            'date_application'  =>null,
+            'date_approval'     =>null,
+            'date_payment'      =>null,
+            'date_due'          =>null,
+            'loan_status'       =>0,
+        ]);
+
+
+        if($loan){
+            return back()->with('success','Loan application complete');
+        }else{
+            return back()->with('error','Operation failed '.$loan);
+        }
+
+    }
+
 
     // Repayment Methods
     public function repayment_store(Request $request){
@@ -113,8 +149,10 @@ class LoansController extends Controller
 
         if($repayments){
             $first_date = $repayments->date_first_payment;
+            $balance = $repayments->balance;
         }else{
             $first_date = $payment_date;
+            $balance = $loan->total_repayment;
         }
         // save payment details
         $pay = LoanRepayment::create([
@@ -125,7 +163,7 @@ class LoansController extends Controller
             'monthly_payment'       =>$loan->total_repayment / $loan->period,
             'total_amount'          =>$loan->total_repayment,
             'total_paid'            =>$total_paid + $amount_paid,
-            'balance'               =>$loan->total_repayment - ($total_paid + $amount_paid),
+            'balance'               =>$balance - $amount_paid,
             'date_first_payment'    =>$first_date,
             'date_next_payment'     =>$next_payment,
         ]);
@@ -142,10 +180,10 @@ class LoansController extends Controller
         $update = Loan::where('loan_number',$loan_number)->update(['date_payment'=>$next_payment]);
 
 
-        if($pay && $update){
+        if($pay){
             return back()->with('success','Loan payment recorded');
         }else{
-            return back()->with('error','Operation failed 1: Payment '.$pay.' Or 2 Loan update '.$update);
+            return back()->with('error','Operation failed 1: Payment '.$pay);
         }
 
 

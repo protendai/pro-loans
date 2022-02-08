@@ -31,49 +31,46 @@
             <div class="w-100">
                 <div class="row">
                     <div class="col-sm-6">
+
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title mb-4">Purchase Requests</h5>
-                                <h1 class="mt-1 mb-3">0</h1>
+                                <h5 class="card-title mb-4">Loan Requests</h5>
+                                <h1 class="mt-1 mb-3">{{$pending_loans}}</h1>
                                 <div class="mb-1">
-                                    <span class="text-danger"> <i
-                                            class="mdi mdi-arrow-bottom-right"></i> 0</span>
-                                    <span class="text-muted">Since last week</span>
+                                   
                                 </div>
                             </div>
                         </div>
+
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title mb-4">Pending Requests</h5>
-                                <h1 class="mt-1 mb-3">0</h1>
+                                <h5 class="card-title mb-4">Issued Loans</h5>
+                                <h1 class="mt-1 mb-3">$ @convert($issued_loans)</h1>
                                 <div class="mb-1">
-                                    <span class="text-success"> <i
-                                            class="mdi mdi-arrow-bottom-right"></i> 0</span>
-                                    <span class="text-muted">Since last week</span>
+                                   
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title mb-4">Inventory Requests</h5>
-                                <h1 class="mt-1 mb-3">0</h1>
+                                <h5 class="card-title mb-4">Approved Loans</h5>
+                                <h1 class="mt-1 mb-3">{{$approved_loans}}</h1>
                                 <div class="mb-1">
-                                    <span class="text-success"> <i
-                                            class="mdi mdi-arrow-bottom-right"></i> 0 </span>
-                                    <span class="text-muted">Since last week</span>
+                                   
                                 </div>
                             </div>
                         </div>
+                        
+
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title mb-4">Pending Inventory Requests</h5>
-                                <h1 class="mt-1 mb-3">0</h1>
+                                <h5 class="card-title mb-4">Repayments</h5>
+                                <h1 class="mt-1 mb-3">$ @convert($paid_loans)</h1>
                                 <div class="mb-1">
-                                    <span class="text-danger"> <i
-                                            class="mdi mdi-arrow-bottom-right"></i> 0 </span>
-                                    <span class="text-muted">Since last week</span>
+                                   
                                 </div>
                             </div>
                         </div>
