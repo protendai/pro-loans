@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>V-Finance</title>
+    <title>V-Finance | Home</title>
+
     <link rel="shortcut icon" href="{{ asset('site/img/favicon_home.ico')}}" type="image/x-icon">
     <link rel="icon" href="{{ asset('site/img/favicon_home.ico')}}" type="image/x-icon">
 
@@ -92,7 +93,7 @@
                 <div class="col-sm-5">
                     <div class="form-container">
                         <div class="form-mockup">
-                            <h2>Request A Loan Now</h2>
+                            <h2 style="color:red !important">Request A Loan Now</h2>
                             <h4>Easy to apply for a loan with us,Once you have complete this form. </h4>
                             <form method="POST" action="{{ route('customer.register') }}">
                                 @csrf
@@ -141,6 +142,7 @@
                                   </div>
                                 </div>
                               </div>
+                              
                               <button type="submit" class="btn btn-default quote_btn">Send Request</button>
                             </form>
                         </div>
