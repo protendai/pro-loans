@@ -9,74 +9,40 @@
 
                 </div>
                 <div class="card-body">
-                    <form action="{{route('users.update',$user->id)}}" method="POST" enctype="multipart/form-data">
+                    <form action="/users/update/{{$user->id}}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="">Name</label>
-                                    <input type="text" class="form-control" name="name" value="{{$user->name}}">
+                                    <input type="text" class="form-control" name="name" pattern="[a-zA-Z].{3,25}" maxlength="15" required value="{{$user->name}}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="">Surname</label>
-                                    <input type="text" class="form-control" name="surname" value="{{$user->surname}}">
+                                    <input type="text" class="form-control" name="surname" pattern="[a-zA-Z].{3,25}" maxlength="15" required  value="{{$user->surname}}">
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label for="">Role</label>
                                     <select class="form-control" name="role">
                                         <option value="{{$user->role}}">{{$user->role}}</option>
                                         <option value="">-------------</option>
-                                        <option value="SEC">Secretary</option>
-                                        <option value="HOD">HOD</option>
-                                        <option value="ST">Stores Person</option>
                                         <option value="AD">Administrator</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="">Department</label>
-                                    <select class="form-control js-example-basic-single" name="department_id">
-                                        <option value="{{$user->department->id}}">{{$user->department->dpt_name}}</option>
-                                        @foreach ($departments as $row)
-                                            @if ($row->id != $user->department->id)
-                                                <option value="{{$row->id}}">{{$row->dpt_name}}</option>
-                                            @endif
-                                        @endforeach
+                                        <option value="LO">Loan Officer</option>
+                                        <option value="CU">Customer</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label for="">Email</label>
-                                    <input type="text" class="form-control" name="email" value="{{$user->email}}">
+                                    <input type="email" class="form-control" name="email" value="{{$user->email}}" maxlength="50" required>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="">Phone</label>
-                                    <input type="text" class="form-control" name="phone" value="{{$user->phone}}">
-                                </div>
-                            </div>
-                            <hr/>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="">SAP Username</label>
-                                    <input type="text" class="form-control" name="sap_username" value={{$user->sap_username}}>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="">SAP Password</label>
-                                    <input type="text" class="form-control" name="sap_password" value={{$user->sap_password}}>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div class="form-group">
-                                <label for="">Status</label>
-                                <select class="form-control" name="status">
-                                    <option value="1">Active</option>
-                                    <option value="2">Disabled</option>
-                                </select>
-                            </div>
+                                
+                            </div>                           
                         </div>
                         <div class="modal-footer">
+                            <a href="/users/delete/{{$user->id}}" class="btn btn-danger float-left">Delete User</a>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
                     </form>

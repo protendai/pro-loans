@@ -98,17 +98,17 @@
                                 @csrf
                               <div class="row">
                                 <div class="form-group col-md-6">
-                                    <input type="text" name="name" class="form-control" placeholder="Name" required>
+                                    <input type="text" name="name" class="form-control" placeholder="Name" pattern="[a-zA-Z].{3,25}" maxlength="15" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input type="text" name="surname" class="form-control" placeholder="Surname" required>
+                                    <input type="text" name="surname" class="form-control" placeholder="Surname" pattern="[a-zA-Z].{3,25}" maxlength="15" required>
                                 </div>
                               </div>
                               <div class="form-group">
-                                <input type="email" name="email" class="form-control" placeholder="E-mail" required>
+                                <input type="email" name="email" class="form-control" placeholder="E-mail" maxlength="25" required>
                               </div>
                               <div class="form-group">
-                                <input type="text" name="phone" class="form-control" placeholder="Phone" required>
+                                <input type="text" name="phone" class="form-control" placeholder="Phone" pattern="[0]{1}[7]{1}[1-7]{1}[1-9]{1}[0-9]{6}"  maxlength="12" required>
                               </div>
 
                               <div class="row">
@@ -123,7 +123,7 @@
                               </div>
 
                               <div class="form-group">
-                                <input type="text" name="address" class="form-control" placeholder="Address">
+                                <input type="text" name="address" class="form-control" placeholder="Address" pattern="[a-zA-Z0-9].{10,50}" maxlength="50">
                               </div>
 
                               <div class="form-group">

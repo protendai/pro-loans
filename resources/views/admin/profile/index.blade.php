@@ -27,11 +27,11 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="">Enter National ID</label>
-                                        <input type="text" class="form-control" name="national_id" value="{{$details->national_id}}" pattern="[1-9]{2}-[0-9]{6,7}-[A-Z]{1}[0-9]{2}" required>
+                                        <input type="text" class="form-control" name="national_id" value="{{$details->national_id}}" pattern="[1-9]{2}-[0-9]{6,7}-[A-Z]{1}[0-9]{2}" maxlength="25" required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="">Phone</label>
-                                        <input type="text" class="form-control" name="phone" value="{{$details->phone}}" required>
+                                        <input type="text" class="form-control" name="phone" value="{{$details->phone}}" pattern="[0]{1}[7]{1}[1-7]{1}[1-9]{1}[0-9]{6}" maxlength="12" required>
                                     </div>
                                 </div>
                                 <br/>

@@ -20,12 +20,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('loans/apply', 'LoansController@apply');
     // Repy
     Route::post('repayment/record', 'LoansController@repayment_store');
-
-
     // Users  
     Route::get('users', 'UsersController@index')->name('users');
     Route::post('users/create', 'UsersController@store')->name('users.store');
-    Route::get('users/edit/{id}', 'UsersController@index')->name('users.edit');
+    Route::get('users/edit/{id}', 'UsersController@edit')->name('users.edit');
+    Route::post('users/update/{id}', 'UsersController@update');
+    Route::get('users/delete/{id}', 'UsersController@destroy');
     // User Profile  
     Route::get('profile', 'UsersController@profile');
     Route::post('profile/customer', 'UsersController@customer_profile');

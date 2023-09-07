@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
-use DB;
-use Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\Spouses;
 use App\Models\Loan;
+use Exception;
 
 class UsersController extends Controller
 {
@@ -26,57 +27,7 @@ class UsersController extends Controller
     
     public function upload(Request $request)
     {
-       // Upload File
-        if($request->file){
-            $file = $request->file;
-            $file_name = round(microtime(true)).'.'.$file->getClientOriginalExtension();
-            $path = $file->storeAs('public/docs', $file_name);
-        }else{
-            return back()->with('error','Please select file to upload');
-        }
 
-        // Get File
-
-        $path = public_path('/storage/docs/'.$file_name);
-        $excel = Importer::make('Excel');
-        $excel->load($path);
-        $collection = $excel->getCollection();
-
-        if(sizeof($collection[1]) == 4){
-            for($row=1;$row<sizeof($collection);$row++){
-                try{
-
-                    $name           = $collection[$row][0];
-                    $surname        = $collection[$row][1];
-                    $sap_username   = $collection[$row][2];
-                    $sap_password   = $collection[$row][3];
-                    $email          = $this->create_email($name,$surname);
-
-                    $create = User::create([
-                        'sap_username'  =>$sap_username,
-                        'sap_password'  =>$sap_password,
-                        'name'          =>$name,
-                        'surname'       =>$surname,
-                        'role'          =>"SEC",
-                        'department_id' =>1,
-                        'email'         =>$email,
-                        'phone'         =>"na",
-                        'status'        =>1,
-                        'password'      =>Hash::make('12345678'),
-                    ]);
-
-                    if(!$create){ return back()->with('error','Operation failed '.$create); }
-
-                }catch(\Exception $e){
-                    back()->with('error',$e->getMessage());
-                }
-            }
-            return back()->with('success','User upload successful');
-
-        }else{
-            return back()->with('error','Fields dont match');
-
-        }
     }
 
 
@@ -127,7 +78,6 @@ class UsersController extends Controller
     {
         $title = "View User";
         $user = User::where('id',$id)->first();
-        $departments = Department::all();
         return view('admin.users.edit',compact('title','user','departments'));
     }
  
@@ -135,22 +85,17 @@ class UsersController extends Controller
     {
         $title = "Edit User";
         $user = User::where('id',$id)->first();
-        $departments = Department::all();
-        return view('admin.users.edit',compact('title','user','departments'));
+
+        return view('admin.users.edit',compact('title','user'));
     }
 
     public function update(Request $request, $id)
     {
-        $update = User::where('id',$id)->update([
-            'sap_username'  =>$request->sap_username,
-            'sap_password'  =>$request->sap_password,
+        $update = User::where('id',$id)->update([ 
             'name'          =>$request->name,
             'surname'       =>$request->surname,
             'role'          =>$request->role,
-            'department_id' =>$request->department_id,
             'email'         =>$request->email,
-            'phone'         =>$request->phone,
-            'status'        =>1,   
         ]);
 
         if($update){
@@ -174,7 +119,13 @@ class UsersController extends Controller
     
     public function destroy($id)
     {
-        //
+        $delete = User::where('id',$id)->delete();
+
+        if($delete){
+            return redirect('/users')->with('success','User user deleted');
+        }else{
+            return back()->with('error','Operation failed '.$delete);
+        }
     }
 
     // Profile Routes
@@ -190,7 +141,7 @@ class UsersController extends Controller
         return view('admin.profile.index',compact('title','user','details'));
     }
 
-    public function profile_update(){
+    public function profile_update(Request $request){
         
         $update = User::where('id',Auth::user()->id)->update([   
             'email'     =>$request->email,
@@ -255,6 +206,7 @@ class UsersController extends Controller
                     'copy_national_id'  =>null,
                     'copy_residence'    =>null,
                     'copy_bank'         =>null,
+                    'status'            =>0
                 ]);
             } 
             
@@ -305,6 +257,7 @@ class UsersController extends Controller
        
         return view('admin.users.customers_view',compact('user'));
     }
+
     public function customer_profile(Request $request){
         
         if($request->copy_national_id){
@@ -358,7 +311,6 @@ class UsersController extends Controller
             return back()->with('error','Operation failed '.$update);
         }
     }
-
 
     public function download($document){
        

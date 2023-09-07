@@ -24,9 +24,8 @@
             </div>
         </div>
     @endif
-@endif
-
-    <div class="row">
+@else
+<div class="row">
         <div class="col-xl-6 col-xxl-5 d-flex">
             <div class="w-100">
                 <div class="row">
@@ -95,6 +94,9 @@
             </div>
         </div>
     </div>
+@endif
+
+    
 
    
 
